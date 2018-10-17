@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" media="screen" href="../css/frontpage.css">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Josefin+Slab" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.6.1/lodash.min.js"></script>
+    <title>Pauline Ji</title>
+</head>
+
+<body>
+
+    <div id="topnavibar"></div>
+
+    <form id="loginForm" class="modal-content animate " action="index.html" method="POST">        
+       <div class="container">
+            <label for="uname"><b>Username</b></label>
+            <input type="text" id="username" placeholder="Enter Username" name="uname" required>
+                  
+            <label for="psw"><b>Password</b></label>
+            <input type="password" id="password" placeholder="Enter Password" name="psw" required>
+                        
+        </div>
+        <br>
+        <div>
+            <input type="submit" id="submitDetails" value="LOGIN" />
+        </div>
+                     
+    </form>
+
+    <!-- footer -->
+    <div id="newsletter" class="row col-12">
+        <div id="newsletterBox">
+            <h2>SUBSCRIBE</h2>
+            <p>sign up to receive information about the newest exhibitions and MORE</p>
+            <form id="newsletterForm">
+                <input type="text" placeholder="name" name="name" id="name-input" autocomplete="off" required>
+                <input type="email" placeholder="name@address.dk" name="email" id="email-input" autocomplete="off" required>
+                <input type="submit" value="follow">
+            </form>
+        </div>
+    </div>
+
+
+    <script src="../client_js/loadTopnavi.js"></script>
+    <script src="../client_js/slidesshow.js"></script>
+    <script src="../client_js/index.js"></script>
+    <script src="../client_js/shared.js"></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" media="screen" href="../css/frontpage.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="../css/work.css">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Josefin+Slab" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.6.1/lodash.min.js"></script>
+    <title>Pauline Ji</title>
+</head>
+
+<body>
+
+    <div id="topnavibar"></div>
+    <!-- END OF HEADER -->
+
+
+    <!-- NAVBAR TIMELINE-->
+    <div class="wrapper">
+
+
+        <!--END OF NAVBAR TIMELINE-->
+
+        <div id="subModal" class="submodal">
+            <div class="modal-content">
+                <svg class="floaty-span subclose" viewbox="0 0 100 100">
+                    <path d="M 20 20 L 80 80 M 20 80 L 80 20" stroke="#646464" stroke-width="5" fill="none" />
+                </svg>
+                <form id="subfileupload" action="subfileupload" method="post" enctype="multipart/form-data">
+                    <label for="subfile-input" class="custom-file-upload">
+                        <i class="fa fa-cloud-upload"></i> JPG, JPEG, PNG, GIF, BMP, WAV, MP3, MP4, TXT, HTML file
+                    </label>
+                    <p id="custom-subfile-upload-title"></p>
+                    <input type="file" name="filetoupload" id="subfile-input" autocomplete="off">
+                    <br>
+                    <br>
+                    <input class="hidden" type="text" placeholder="dependency" name="dependency" id="dependency-input" autocomplete="off" readonly>
+                    <br>
+                    <input type="submit">
+                </form>
+            </div>
+        </div>
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <svg class="floaty-span close" viewbox="0 0 100 100">
+                    <path d="M 20 20 L 80 80 M 20 80 L 80 20" stroke="#646464" stroke-width="5" fill="none" />
+                </svg>
+                <form id="fileupload" action="fileupload" method="post" enctype="multipart/form-data">
+                    <label for="file-input" class="custom-file-upload">
+                        <i class="fa fa-cloud-upload"></i> JPG, JPEG, PNG, GIF, BMP file
+                    </label>
+                    <p id="custom-file-upload-title"></p>
+                    <input type="file" name="filetoupload" id="file-input" autocomplete="off">
+                    <br>
+                    <input type="text" placeholder="title" name="title" id="title-input" autocomplete="off" required>
+                    <br>
+                    <textarea placeholder="poem extract" name="text" id="text-input" autocomplete="off" required></textarea>
+                    <br>
+                    <br>
+                    <select name="yearpicker" id="yearpicker"></select>
+                    <br>
+                    <select name="type" class="hidden">
+                        <option value="work">work</option>
+                    </select>
+                    <select name="status" class="hidden">
+                        <option value="past">past</option>
+                    </select>
+                    <input type="submit">
+                </form>
+            </div>
+        </div>
+
+        <div id="undercontent" class="row col-12">
+            <div id="upload-anchor"></div>
+            <div class="sidemenu" id="yearholder">
+                <p class="selected" onclick="getByYear(this)" year="any">all</p>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- FOOTER -->
+    <div id="newsletter" class="row col-12">
+        <div id="newsletterBox">
+            <h2>SUBSCRIBE</h2>
+            <p>sign up to receive information about the newest exhibitions and MORE</p>
+            <form id="newsletterForm">
+                <input type="text" placeholder="name" name="name" id="name-input" autocomplete="off" required>
+                <input type="email" placeholder="name@address.dk" name="email" id="email-input" autocomplete="off" required>
+                <input type="submit" value="subscribe">
+            </form>
+        </div>
+    </div>
+
+    <script src="../client_js/loadTopnavi.js"></script>
+    <script src="../client_js/works.js"></script>
+    <script src="../client_js/shared.js"></script>
+
+</body>
+
+</html>

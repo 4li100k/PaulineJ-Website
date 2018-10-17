@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" media="screen" href="../css/frontpage.css">
+    <link href="https://fonts.googleapis.com/css?family=News+Cycle" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Josefin+Slab" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.6.1/lodash.min.js"></script>
+    <title>Pauline Ji</title>
+</head>
+
+<body>
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            Biography upload
+            <svg class="floaty-span close" viewbox="0 0 100 100">
+                <path d="M 20 20 L 80 80 M 20 80 L 80 20" stroke="#646464" stroke-width="5" fill="none" />
+            </svg>
+            <form class="biography-form" action="biographyupload" method="post" enctype="multipart/form-data">
+                <label for="biography-input" class="custom-file-upload">
+                    <i class="fa fa-cloud-upload"></i> HTML file
+                </label>
+                <p id="custom-biography-upload-title"></p>
+                <input type="file" name="filetoupload" id="biography-input" autocomplete="off">
+                <br>
+                <br>
+                <br>
+                <input type="submit">
+            </form>
+        </div>
+    </div>
+
+    <div id="contactModal" class="modal">
+        <div class="modal-content">
+            Contact info upload
+            <svg class="floaty-span close" viewbox="0 0 100 100">
+                <path d="M 20 20 L 80 80 M 20 80 L 80 20" stroke="#646464" stroke-width="5" fill="none" />
+            </svg>
+            <form class="biography-form" action="contactupload" method="post" enctype="multipart/form-data">
+                <label for="contact-input" class="custom-file-upload">
+                    <i class="fa fa-cloud-upload"></i> HTML file
+                </label>
+                <p id="custom-contact-upload-title"></p>
+                <input type="file" name="filetoupload" id="contact-input" autocomplete="off">
+                <br>
+                <br>
+                <br>
+                <input type="submit">
+            </form>
+        </div>
+    </div>
+
+    <div id="pictureModal" class="modal">
+        <div class="modal-content">
+            Picture upload
+            <svg class="floaty-span close" viewbox="0 0 100 100">
+                <path d="M 20 20 L 80 80 M 20 80 L 80 20" stroke="#646464" stroke-width="5" fill="none" />
+            </svg>
+            <form class="biography-form" action="pictureupload" method="post" enctype="multipart/form-data">
+                <label for="picture-input" class="custom-file-upload">
+                    <i class="fa fa-cloud-upload"></i> JPG, JPEG, PNG, GIF, BMP file
+                </label>
+                <p id="custom-picture-upload-title"></p>
+                <input type="file" name="filetoupload" id="picture-input" autocomplete="off">
+                <br>
+                <br>
+                <br>
+                <input type="submit">
+            </form>
+        </div>
+    </div>
+
+    <div id="topnavibar"></div>
+
+    <div id="content">
+        <div id="biography" class="">
+            <iframe src="html/biography.html" onload="resizeIframe(this)"></iframe>
+            <a id="downloadbtn" href="download">Download as pdf</a>
+            <hr>
+        </div>
+        <div class="leftnavbar">
+
+            <img id="pic" src="pictures/biography.jpg" align="left">
+            <iframe src=" html/contact.html" onload="resizeIframe(this)"></iframe>
+        </div>
+    </div>
+
+    <div id="newsletter" class="row col-12">
+        <div id="newsletterBox">
+            <h2>SUBSCRIBE</h2>
+            <p>sign up to receive information about the newest exhibitions and MORE</p>
+            <form id="newsletterForm">
+                <input type="text" placeholder="name" name="name" id="name-input" autocomplete="off" required>
+                <input type="email" placeholder="name@address.dk" name="email" id="email-input" autocomplete="off" required>
+                <input type="submit" value="subscribe">
+            </form>
+        </div>
+    </div>
+</body>
+<script src="../client_js/loadTopnavi.js"></script>
+<script src="../client_js/biography.js"></script>
+<script src="../client_js/shared.js"></script>
+
+</html>

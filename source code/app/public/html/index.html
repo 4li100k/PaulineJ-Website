@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" media="screen" href="../css/frontpage.css">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Bungee+Hairline" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.6.1/lodash.min.js"></script>
+    <title>Pauline Ji</title>
+</head>
+
+<body>
+    <div id="subModal" class="submodal">
+        <div class="modal-content">
+            <svg class="floaty-span subclose" viewbox="0 0 100 100">
+                <path d="M 20 20 L 80 80 M 20 80 L 80 20" stroke="#646464" stroke-width="5" fill="none" />
+            </svg>
+            <form id="subfileupload" action="subfileupload" method="post" enctype="multipart/form-data">
+                <label for="subfile-input" class="custom-file-upload">
+                    <i class="fa fa-cloud-upload"></i> JPG, JPEG, PNG, GIF, BMP, WAV, MP3, MP4, TXT, HTML file
+                </label>
+                <p id="custom-subfile-upload-title"></p>
+                <input type="file" name="filetoupload" id="subfile-input" autocomplete="off">
+                <br>
+                <br>
+                <input class="hidden" type="text" placeholder="dependency" name="dependency" id="dependency-input" autocomplete="off" readonly>
+                <br>
+                <input type="submit">
+            </form>
+        </div>
+    </div>
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <svg class="floaty-span close" viewbox="0 0 100 100">
+                <path d="M 20 20 L 80 80 M 20 80 L 80 20" stroke="#646464" stroke-width="5" fill="none" />
+            </svg>
+            <form id="fileupload" action="fileupload" method="post" enctype="multipart/form-data">
+                <label for="file-input" class="custom-file-upload">
+                    <i class="fa fa-cloud-upload"></i> JPG, JPEG, PNG, GIF, BMP file
+                </label>
+                <p id="custom-file-upload-title"></p>
+                <input type="file" name="filetoupload" id="file-input" autocomplete="off">
+                <br>
+                <input type="text" placeholder="title" name="title" id="title-input" autocomplete="off" required>
+                <br>
+                <textarea placeholder="poem extract" name="text" id="text-input" autocomplete="off" required></textarea>
+                <br>
+                <br>
+                <select name="yearpicker" id="yearpicker"></select>
+                <br>
+                <select name="type" class="hidden">
+                    <option value="work">work</option>
+                </select>
+                <select name="status" class="hidden">
+                    <option value="ongoing">ongoing</option>
+                </select>
+                <input type="submit">
+            </form>
+        </div>
+    </div>
+
+    <div id="topnavibar"></div>
+
+    <!-- <svg class="" width="400" style="border: 1px solid black" viewbox="0 0 100 100">
+        <path d="M 30 80 q -5 0 -5 -5 L 25 40 q 0 -5 5 -5 L 65 35 q 5 0 5 5 L 70 75 q 0 5 -5 5 L 30 80" stroke="#000000" stroke-width="5" fill="none" />
+        <path d="M 50 60 L 90 20" stroke="#ffffff" stroke-width="30" fill="none" />
+        <path d="M 42 68 L 55 65 L 80 40 L 70 30 L 45 55 L 42 68 L 55 65 M 73 47 L 63 37" stroke="#000000" stroke-width="5" fill="none" />
+    </svg> -->
+    
+
+    <!-- <svg class="" width="400" style="border: 1px solid black" viewbox="0 0 100 100">
+        <path d="M  20 20 L 80 20 L 80 80 L 20 80 L 20 20 L 80 20 M 20 40 L 80 40" stroke="#00c700" stroke-width="5" fill="none"/>
+        <path d="M 45 49 L 55 49 q 2 0 2 -2 q 0 -2 -2 -2 L 45 45 q -2 0 -2 2 q 0 2 2 2" stroke="#00c700" stroke-width="2" fill="#00c700"/>
+    </svg> -->
+
+    <div class="col-12 row" id="ongoingprojectinfo">
+        <div id="upload-anchor"></div>
+        <div class="col-12 slideshow-container">
+
+            <div class="slideshow-flex" id="ongoing-div">
+                <div class="mySlides fade placeholder">
+                </div>
+            </div>
+
+            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+            <div class="navdots" id="navdot-div">
+                <!-- <span class="dot placeholder" onclick="currentSlide(1)"></span> -->
+            </div>
+        </div>
+        <br>
+    </div>
+
+    <div id="undercontent" class="row col-12">
+
+    </div>
+
+    <!-- footer -->
+    <div id="newsletter" class="row col-12">
+        <div id="newsletterBox">
+            <h2>SUBSCRIBE</h2>
+            <p>sign up to receive information about the newest exhibitions and MORE</p>
+            <form id="newsletterForm">
+                <input type="text" placeholder="name" name="name" id="name-input" autocomplete="off" required>
+                <input type="email" placeholder="name@address.dk" name="email" id="email-input" autocomplete="off" required>
+                <input type="submit" value="follow">
+            </form>
+        </div>
+    </div>
+
+
+    <script src="../client_js/loadTopnavi.js"></script>
+    <script src="../client_js/slidesshow.js"></script>
+    <script src="../client_js/index.js"></script>
+    <script src="../client_js/shared.js"></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,15 @@
+fileupload		DONE
+subfileupload		DONE
+subsubfileupload	DONE
+biographyupload		DONE
+contactupload		DONE
+pictureupload		DONE
+broadcastForm		DONE
+
+
+cases:
+
+no file included
+file of wrong format
+other unhandled exception
+after the file is moved/extracted elsewhere

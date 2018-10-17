@@ -1,0 +1,280 @@
+body {
+    /* background-color:#edf5f5; */
+    margin: 0px;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: 'Fredericka the Great';
+}
+
+.row::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+[class*="col-"] {
+    float: left;
+    padding: 0;
+}
+
+.col-1 {width: 8.33%;}
+.col-2 {width: 16.66%;}
+.col-3 {width: 25%;}
+.col-4 {width: 33.33%;}
+.col-5 {width: 41.66%;}
+.col-6 {width: 50%;}
+.col-7 {width: 58.33%;}
+.col-8 {width: 66.66%;}
+.col-9 {width: 75%;}
+.col-10 {width: 83.33%;}
+.col-11 {width: 91.66%;}
+.col-12 {width: 100%;}  
+
+
+
+@media only screen and (max-width: 600px){
+    div.sitenav .nav-main{
+        display: none;
+    }
+
+    .sitenav .language-dropdown {
+        display: none;
+    }
+
+    div.sitenav a.icon{
+        position: absolute;
+        float: right;
+        display: block;
+        right: 10px;
+        top: 10px;
+        padding-left: 0px; 
+    }
+
+    div.sitenav .icon:hover {
+        color: darkcyan;
+    }
+    
+    div.sitenav.responsive{
+        /* display: flex; */
+        /* flex-direction: column; */
+        display: block;
+        align-items: center;
+        background-color: rgba(231, 231, 231, 0.877);
+        /* padding: 0 0 20px 0; */
+        padding: 0;
+    }
+
+    div.sitenav.responsive .nav-main:not(.icon), div.sitenav.responsive .drop-btn {
+        display: block;
+        font-size: 25px;
+        background-color: rgba(231, 231, 231, 0.877);
+    }
+    div.sitenav.responsive .nav-main:not(.icon){
+        padding: 5px 0 5px 20px;
+    }
+
+    div.sitenav.responsive a:not(.icon){
+        width: 100%;
+        text-align: left;
+        /* border: 1px solid black; */
+    }
+    div.sitenav.responsive a.nav-main:nth-child(even):not(.icon){
+        background-color: rgb(200, 200, 200);
+    }
+
+    div.sitenav.responsive .dropdown-content a {
+        font-size: 26px;
+    }
+
+    div.sitenav.responsive .dropdown-content a:not(:first-child){
+        /* padding-left: 10px;  */
+    }
+
+    div.sitenav.responsive .dropdown-content a:not(:last-child){
+        /* padding-right: 20px; */
+    }
+
+    .myslides img{
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+@media only screen and (min-width: 600px){  
+    div.sitenav {
+        padding-top: 30px;
+        padding-left: 40px;
+    }
+
+    div.sitenav .nav-main {
+        padding-right: 40px;
+        padding-inline-start: 0;
+    }
+
+    div.sitenav .dropdown-content a {
+        padding-right: 13px;
+        padding-inline-start: 8px;
+    }
+
+    .myslides {
+        height: 500px;
+    }
+    
+    .myslides img{
+        padding: 10px;
+        max-height: 500px;
+        width: 100%;
+        /* overflow: hidden; */
+    }
+    .dropdown-content{
+        /* top: 35px; */
+        position: absolute;
+    }
+}
+
+div.paulinejupin {
+    display: flex;
+    justify-content: center;
+    padding-top: 30px;
+    /* padding-bottom: 10px; */
+}
+
+div.paulinejupin a{
+    font-size: 25px;
+    color:darkcyan;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+div.paulinejupin a:hover {
+    color: rgb(59, 58, 58);
+}
+
+div.sitenav {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 35px;
+}
+
+div.sitenav .icon{
+    display: none;
+}
+
+div.sitenav .nav-main{
+    font-size: 20px;
+    color: rgb(59, 58, 58);
+    padding-inline-start: 0;
+    padding-block-end: 0;
+    text-decoration: none;
+    position: relative;
+}
+div.sitenav .current-page{
+    color: darkcyan;
+    font-weight: bold;
+}
+div.sitenav .nav-main:hover, .drop-btn:hover, .dropdown-content a:hover{
+    color: darkcyan;
+}
+
+.drop-btn{
+    background-color: white;
+    border: none;
+    font-size: 20px;
+    color: rgb(59, 58, 58);
+    padding: 0;
+}
+
+.dropdown-content{
+    display: none;
+    padding-top: 5px;
+}
+
+.dropdown-content a, img {
+    text-decoration: none;
+    color: rgb(59, 58, 58);
+}
+
+.dropdown-content img{
+    border-radius: 20%;
+    opacity: 0.9;
+}
+
+.dropdown-content img:hover {
+    opacity: 0.4;
+}
+
+.language-dropdown:hover .dropdown-content{
+    display: block;
+}
+
+.slides-container{
+    position: relative;
+}
+
+.myslides {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    /* overflow: hidden; */
+    /* display: flex;
+    justify-content: center; */
+}
+#biography{
+    min-width: 40%;
+}
+
+/* HHHHHHHHHHHHH */
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    padding-top: 60px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* Add Zoom Animation */
+.animate {
+    -webkit-animation: animatezoom 0.6s;
+    animation: animatezoom 0.6s
+}
+
+@-webkit-keyframes animatezoom {
+    from {-webkit-transform: scale(0)} 
+    to {-webkit-transform: scale(1)}
+}
+    
+@keyframes animatezoom {
+    from {transform: scale(0)} 
+    to {transform: scale(1)}
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+    span.psw {
+       display: block;
+       float: none;
+    }
+    .cancelbtn {
+       width: 100%;
+    }
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+}
