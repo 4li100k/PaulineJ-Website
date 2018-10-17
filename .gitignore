@@ -61,7 +61,7 @@ typings/
 .next
 
 # content folders that have information stored in mongodb
-**/public/content/
-**/public/subcontent/
-**/public/subsubcontent/
+#**/public/content/
+#**/public/subcontent/
+#**/public/subsubcontent/
 **/public/temp/
