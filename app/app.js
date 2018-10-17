@@ -361,7 +361,8 @@ app.post("/delete-content", auth, async function (req, res) { // delete the ongo
             fs.unlinkSync(__dirname + "/public/subcontent/" + subcontent._id + "." + subcontent.format);
     });
     await db.collection("subcontent").deleteMany({ "dependency": ObjectId(content._id).toString() });
-    fs.unlinkSync(__dirname + "/public/content/" + content._id + "." + content.format);
+    if (fs.existsSync(__dirname + "/public/content/" + content._id + "." + content.format))
+        fs.unlinkSync(__dirname + "/public/content/" + content._id + "." + content.format);
     await db.collection("content").deleteOne({ "_id": new ObjectId(content._id) });
 
     response.status = 200;
