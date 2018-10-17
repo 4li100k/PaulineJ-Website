@@ -118,13 +118,16 @@ function load_text_content(id, srcfile) {
 function load_text_edit(id, htmlContent) {
     $("#text_content").empty();
     // $("#text_content").removeClass("ql-editor");    
-    $("#text_content").append(`<div id="editorr">${htmlContent}</div>`);
+    $("#text_content").append(`<div id="editorr"></div>`);
     var quill = new Quill('#editorr', {
         theme: 'snow',
         modules: {
             toolbar: toolbarOptions
         }
     });
+    // quill.setText(htmlContent);
+    $("#editorr").find(".ql-editor").append(htmlContent);
+    $("#editorr").find("p").first().remove();
     $("#editorr").find("select.ql-font").append(`<option selected="">Fredericka the Great</option>`);
     $("#text_content").append(`<svg class="save-text-buttons floaty-spans" target="${id}" viewbox="0 0 100 100"><path d="M 80 20 L 40 80 L 20 50" stroke="#00c700" stroke-width="10" fill="none" /></svg>`);
     $(".save-text-buttons").on("click", (event) => {
