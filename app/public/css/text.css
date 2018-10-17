@@ -94,7 +94,7 @@
     }
     #text_content {
         overflow: hidden;
-        /* border: none; */
+        border: none;
         font-size: 13px;
     }
     #text_content_display {
@@ -107,8 +107,8 @@
 }
 
 #editorr {
-    /* display: block; */
     font-family: 'Fredericka the Great';
+    white-space: pre;
 }
 
 .ql-font-sofia {
