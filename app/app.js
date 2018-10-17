@@ -691,7 +691,7 @@ function isFromYear(timestamp, year) {
 //functions
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //launch the server
-const server = app.listen("3009", function (err) { // start the server here
+const server = app.listen(process.env.PORT || 3009, function (err) { // start the server here
     if (err) {
         console.log("Server couldn't start.");
         server.close(() => { process.exit() });
