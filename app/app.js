@@ -696,7 +696,8 @@ const server = app.listen("3009", function (err) { // start the server here
         console.log("Server couldn't start.");
         server.close(() => { process.exit() });
     }
-    mongo.connect("mongodb://localhost:27017/internshipTest", async function (err, database) {
+    //mongodb://heroku_3hkjj1jf:d75usaj6ce9nhmfaadlgjm84g2@ds151612.mlab.com:51612/heroku_3hkjj1jf
+    mongo.connect("mongodb://heroku_3hkjj1jf:d75usaj6ce9nhmfaadlgjm84g2@ds151612.mlab.com:51612/internshipTest", async function (err, database) {
         if (err) {
             console.log("There was an error running mongodb", err.message);
             return server.close(() => { process.exit() });
