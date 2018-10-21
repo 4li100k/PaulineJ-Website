@@ -2,29 +2,7 @@
     .writting_display {
         display: none;
     }
-    /* #text_side_navi{
-        display: block;
-        padding: 20px;
-        width: 100%vw;
-        height: auto;
-        border: 1px solid red;
-    }
 
-    .text_title {
-        margin-bottom: 30px;
-        overflow: visible;
-    }
-
-    #text_content_display{
-        display: block;
-        width: 100%;
-        height: auto;
-        overflow: auto;
-    }
-
-    #newsletterBox {
-        display: block;
-    } */
     .accordion {
         background-color: #eee;
         color: #444;

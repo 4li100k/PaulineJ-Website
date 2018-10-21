@@ -71,6 +71,8 @@ $(document).ready(async function () {
         if (data.descriptions) {
             data.descriptions.forEach((object) => {
                 $("#text_side_navi").append(`<div id="${object._id}" class="text_title"><a>${object.title}</a></div>`);
+                $(".small-media-text").append(`<button class="accordion">${object.title}</button>
+                <div class="panel">${object.htmlString}</div>`);
                 load_text_content("#" + object._id, "/content/" + object._id + "." + object.format);
             });
         } else {
@@ -78,6 +80,7 @@ $(document).ready(async function () {
         }
         setupTextSetups();
         $("#text_side_navi").find("a").first().click();
+        responsiveText();
     });
     $("#fileupload").submit(function (e) {
         e.preventDefault();
@@ -133,7 +136,8 @@ function load_text_edit(id, htmlContent) {
     $(".save-text-buttons").on("click", (event) => {
         data = {
             "id": $(event.target).attr("target"),
-            "html": $("#editorr").find(".ql-editor").html()
+            "html": $("#editorr").find(".ql-editor").html(),
+            "htmlString": quill.getText(0, quill.getLength())
         }
         $.ajax({
             type: "POST",
@@ -294,4 +298,27 @@ function getRawHtml(id) {
             }
         });
     });
+}
+
+function responsiveText() {
+    if (mq.matches) {
+        console.log("mq.matches");
+    } else {
+        var acc = document.getElementsByClassName("accordion");
+        var i;
+        console.log("acc length: " + acc.length);
+
+        for (i = 0; i < acc.length; i++) {
+            acc[i].addEventListener("click", function () {
+                this.classList.toggle("active");
+                var panel = this.nextElementSibling;
+                console.log(panel);
+                if (panel.style.display === "block") {
+                    panel.style.display = "none";
+                } else {
+                    panel.style.display = "block";
+                }
+            });
+        }
+    }
 }

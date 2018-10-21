@@ -156,6 +156,7 @@ app.post("/poem-upload", auth, async function (req, res) { // upload a file from
     object.status = "default";
     object.isVisible = true;
     object.format = "html"; // saves the file extension
+    object.htmlString = "";
     await db.collection("content").insert(object);
     response.object = object;// must be here because .insert() gives it the _id attribute
     if (!fs.existsSync(__dirname + "/public/content")) fs.mkdirSync(__dirname + "/public/content");
@@ -509,12 +510,27 @@ app.post("/get-html-content", async function (req, res) {
 app.post("/save-html-content", async function (req, res) {
     let response = {};
     let poem = await db.collection("content").findOne({ "_id": new ObjectId(req.body.id) });
-    if (!poem) { response.err = "poem not found"; return res.json(response); }
+    if (!poem) {
+        response.err = "poem not found";
+        return res.json(response);
+    } else {
+        let myQuery = { _id: new ObjectId(req.body.id) };
+        let newValue = {
+            $set: {
+                "htmlString": req.body.htmlString
+            }
+        };
+        db.collection("content").updateOne(myQuery, newValue, (err) => {
+            if (err) throw err;
+        });
+        // poem.htmlString = req.body.htmlString;
+        console.log("HS: " + req.body.htmlString);
+    }
     response.html = fs.writeFileSync(__dirname + "/public/content/" + poem._id + "." + poem.format, req.body.html, "utf8");
+    response.htmlString = req.body.htmlString;
     response.status = 200;
     res.json(response);
 });
-
 app.get("/get-works-years", async function (req, res) {//reads all the works and returns unrepeating years
     let response = {};
     let mongoFiles = [];
