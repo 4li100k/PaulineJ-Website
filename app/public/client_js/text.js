@@ -20,30 +20,7 @@ const toolbarOptions = [
     ['clean']                                         // removes formatting
 ];
 
-function responsiveText() {
-    if (mq.matches) {
-        console.log("mq.matches");
-    } else {
-        var acc = document.getElementsByClassName("accordion");
-        var i;
-
-        for (i = 0; i < acc.length; i++) {
-            acc[i].addEventListener("click", function () {
-                this.classList.toggle("active");
-                var panel = this.nextElementSibling;
-                if (panel.style.display === "block") {
-                    panel.style.display = "none";
-                } else {
-                    panel.style.display = "block";
-                }
-            });
-        }
-    }
-}
-
 $(document).ready(async function () {
-    responsiveText();
-
     isLoggedIn = false;
     await $.get("isLoggedIn", function (data) {
         isLoggedIn = data.body;
@@ -61,8 +38,6 @@ $(document).ready(async function () {
         $("#topnavibar").append(`<svg class="newsletter-buttons floaty-spans" viewbox="0 0 100 100"><path d="M 25 30 L 75 30 q 5 0 5 5 L 80 65 q 0 5 -5 5 L 25 70 q -5 0 -5 -5 L 20 35 q 0 -5 5 -5 M 23 33 L 50 50 L 77 33" stroke="#c7c700" stroke-width="5" fill="none" /></svg>`);
     }
 
-
-
     $.get("get-poems", function (data) {
         if (data.err) {
             console.log(data.err);
@@ -72,7 +47,8 @@ $(document).ready(async function () {
             data.descriptions.forEach((object) => {
                 $("#text_side_navi").append(`<div id="${object._id}" class="text_title"><a>${object.title}</a></div>`);
                 $(".small-media-text").append(`<button class="accordion">${object.title}</button>
-                <div class="panel">${object.htmlString}</div>`);
+                <div class="panel"><pre>${object.htmlString}</pre></div>`);
+                console.log("panel text: " + object.htmlString);
                 load_text_content("#" + object._id, "/content/" + object._id + "." + object.format);
             });
         } else {
@@ -82,6 +58,7 @@ $(document).ready(async function () {
         $("#text_side_navi").find("a").first().click();
         responsiveText();
     });
+
     $("#fileupload").submit(function (e) {
         e.preventDefault();
         var formData = new FormData(this);
@@ -137,7 +114,7 @@ function load_text_edit(id, htmlContent) {
         data = {
             "id": $(event.target).attr("target"),
             "html": $("#editorr").find(".ql-editor").html(),
-            "htmlString": quill.getText(0, quill.getLength())
+            "htmlString": quill.getText(0, quill.getLength()).replace(/\s\s+/g, ' ')
         }
         $.ajax({
             type: "POST",

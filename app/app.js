@@ -524,7 +524,6 @@ app.post("/save-html-content", async function (req, res) {
             if (err) throw err;
         });
         // poem.htmlString = req.body.htmlString;
-        console.log("HS: " + req.body.htmlString);
     }
     response.html = fs.writeFileSync(__dirname + "/public/content/" + poem._id + "." + poem.format, req.body.html, "utf8");
     response.htmlString = req.body.htmlString;
