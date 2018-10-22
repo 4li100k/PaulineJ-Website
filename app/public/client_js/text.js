@@ -114,7 +114,7 @@ function load_text_edit(id, htmlContent) {
         data = {
             "id": $(event.target).attr("target"),
             "html": $("#editorr").find(".ql-editor").html(),
-            "htmlString": quill.getText(0, quill.getLength()).replace(/\s\s+/g, ' ')
+            "htmlString": quill.getText(0, quill.getLength()).replace(/\n/g, '\q').replace(/\s\s+/g, ' ').replace(/\q/g, '\n')
         }
         $.ajax({
             type: "POST",
@@ -133,24 +133,19 @@ function load_text_edit(id, htmlContent) {
 
 function getSizeOfTextandReframe(obj) {
     let content_height = $(obj).contents().find("html").height();
-    // console.log("render html height: " + content_height);
-    // console.log("window width: " + mq);
     if (content_height > 610) {
         $(obj).height(content_height + "px");
         $(".writting_display").height(content_height + 40 + "px");
         $("#text_content").height(content_height + 20 + "px");
         $("#text_side_navi").height(content_height + "px");
-        // console.log("if, iframe height: " + $("#text_content_display").height());
     }
     else if (mq.matches) {
         $(obj).height(610);
         $(".writting_display").height(610 + 40);
         $("#text_content").height(610 + 20);
         $("#text_side_navi").height(610);
-        // console.log("else, height: " + $(".writting_display").height());
     }
     $(obj).contents().find("head").append(`<base target="_parent">`);
-    // console.log("end");
 }
 
 function setupTextSetups() {
@@ -256,7 +251,6 @@ function setupTextSetups() {
             });
         });
     }
-
     //setup swap buttons
 }
 
