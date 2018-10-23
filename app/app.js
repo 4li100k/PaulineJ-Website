@@ -503,7 +503,9 @@ app.post("/get-html-content", async function (req, res) {
     let response = {};
     let poem = await db.collection("content").findOne({ "_id": new ObjectId(req.body.id) });
     if (!poem) { response.err = "poem not found"; return res.json(response); }
-    response.html = fs.readFileSync(__dirname + "/public/content/" + poem._id + "." + poem.format, "utf8");
+    if (fs.existsSync(__dirname + "/public/content/" + poem._id + "." + poem.format, "utf8"))
+        response.html = fs.readFileSync(__dirname + "/public/content/" + poem._id + "." + poem.format, "utf8");
+    else { response.err = `file ${poem._id}.${poem.format} cannot be found`; return res.json(response); }
     response.status = 200;
     res.json(response);
 });
@@ -621,6 +623,16 @@ app.get("/isLoggedIn", function (req, res) { // used for dynamically adding admi
     else
         response.body = false;
     res.json(response);
+});
+
+app.get("/listOfSubscribers", auth, function(req, res){
+    let response = {};
+    db.collection("subscribers").find().toArray(function (err, foundSubscribers) {
+        if (err) { response.err = err; return res.json(response);}
+        response.subscribers = foundSubscribers;
+        response.status = 200;
+        res.json(response);
+    });
 });
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //functions
