@@ -114,7 +114,7 @@ function load_text_edit(id, htmlContent) {
         data = {
             "id": $(event.target).attr("target"),
             "html": $("#editorr").find(".ql-editor").html(),
-            "htmlString": quill.getText(0, quill.getLength()).replace(/\n/g, '\q').replace(/\s\s+/g, ' ').replace(/\q/g, '\n')
+            "htmlString": quill.getText(0, quill.getLength()).replace(/^( +|\t+)/gmi, '').replace(/( +|\t+)/g, ' ')
         }
         $.ajax({
             type: "POST",
