@@ -113,7 +113,10 @@ function load_text_content(id, srcfile) {
     $(id).find("a").click(async function () {
         $("#text_content").empty();
         // $("#text_content").addClass("ql-editor");
-        let html = await getRawHtml(id);
+        let html = await getRawHtml(id).catch((err)=>{
+            console.log(err);
+            alert(err);
+        });
         $("#text_content").append(`<div class="ql-editor">` + html + `</div>`);
     });
 }
@@ -214,7 +217,7 @@ function setupTextSetups() {
                 data: data
             }).done(function (res) {
                 if (res.err) {
-                    alert(res.err);
+                    alert(res.err); 
                     console.log(res.err);
                 } else if (res.status === 200) {
                     load_text_edit($(event.target).attr("target"), res.html);
@@ -292,7 +295,7 @@ function getRawHtml(id) {
             data: { "id": id.substring(1) }
         }).done(function (res) {
             if (res.err) {
-                resolve(undefined);
+                reject(res.err);
             } else if (res.status === 200) {
                 resolve(res.html);
             }
