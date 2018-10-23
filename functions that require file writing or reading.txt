@@ -1,0 +1,13 @@
+fileupload
+poem-upload
+subfileupload
+subsubfileupload
+biographyupload
+contactupload
+pictureupload
+delete-content
+delete-subcontent
+delete-subsubcontent
+get-html-content
+save-html-content
+broadcastForm
