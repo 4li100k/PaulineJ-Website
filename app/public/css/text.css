@@ -23,11 +23,12 @@
         display: none;
         background-color: white;
         overflow: hidden;
+        text-align: left;
     }
 }
 
 @media only screen and (min-width: 601px) {
-    .accordion, .panel {
+    .small-media-text {
         display: none;
     }
     .writting_display {
