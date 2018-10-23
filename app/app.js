@@ -624,6 +624,16 @@ app.get("/isLoggedIn", function (req, res) { // used for dynamically adding admi
         response.body = false;
     res.json(response);
 });
+
+app.get("/listOfSubscribers", auth, function(req, res){
+    let response = {};
+    db.collection("subscribers").find().toArray(function (err, foundSubscribers) {
+        if (err) { response.err = err; return res.json(response);}
+        response.subscribers = foundSubscribers;
+        response.status = 200;
+        res.json(response);
+    });
+});
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //functions
 function sendEmail(object, subject, message, attachments) { // function to ease things up
