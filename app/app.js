@@ -11,6 +11,7 @@ const fs = require("fs");
 
 const mongo = require("mongodb").MongoClient;
 let ObjectId = require("mongodb").ObjectID; // for creating mongoose id objects out of id strings
+let Binary = require("mongodb").Binary;
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
@@ -135,6 +136,7 @@ app.post("/fileupload", auth, function (req, res) { // upload a file from the fo
 
             if (object.type === "poem" && object.format !== "html") { response.err = "a poem has to be in HTML format"; return res.json(response) }
             if (object.type !== "poem" && object.format === "html") { response.err = "the content can only be a picture"; return res.json(response) }
+            object.file_data = Binary(fs.readFileSync(files.filetoupload.path));
             await db.collection("content").insert(object);
             response.object = object;// must be here because .insert() gives it the _id attribute
             let oldpath = files.filetoupload.path;
@@ -159,8 +161,6 @@ app.post("/poem-upload", auth, async function (req, res) { // upload a file from
     object.htmlString = "";
     await db.collection("content").insert(object);
     response.object = object;// must be here because .insert() gives it the _id attribute
-    if (!fs.existsSync(__dirname + "/public/content")) fs.mkdirSync(__dirname + "/public/content");
-    fs.writeFileSync(__dirname + "/public/content/" + object._id + ".html", "", "utf8");
     response.status = 200;
     res.json(response);
 });
@@ -182,6 +182,7 @@ app.post("/subfileupload", auth, function (req, res) { // upload a subfile from 
         if (!parentObject) { response.err = "invalid dependency"; return res.json(response); };
         object.dependency = fields.dependency;
         object.format = files.filetoupload.name.split(".").pop();
+        object.file_data = Binary(fs.readFileSync(files.filetoupload.path));
         await db.collection("subcontent").insert(object);
         response.object = object;// must be here because .insert() gives it the _id attribute
         response.object.parent = parentObject;
@@ -208,6 +209,7 @@ app.post("/subsubfileupload", auth, function (req, res) { // upload a subsubfile
         if (!parentObject) { response.err = "invalid dependency"; return res.json(response); };
         object.dependency = fields.dependency;
         object.format = files.filetoupload.name.split(".").pop();
+        object.file_data = Binary(fs.readFileSync(files.filetoupload.path));
         await db.collection("subsubcontent").insert(object);
         response.object = object;// must be here because .insert() gives it the _id attribute
         response.object.parent = parentObject;
@@ -240,8 +242,14 @@ app.post("/biographyupload", auth, function (req, res) { // upload a file from t
         if (files.filetoupload.size == 0) { fs.unlinkSync(files.filetoupload.path); response.err = "you need to include a file"; return res.json(response); }
         files.filetoupload.name = files.filetoupload.name.toLowerCase();
         if (!allowedFileFormats.includes(files.filetoupload.name.split(".").pop())) { fs.unlinkSync(files.filetoupload.path); response.err = "wrong file format"; return res.json(response); }
+        await db.collection("misc").deleteOne({ title: "biography" }); // there can be only one
+        let object = {};
+        object.title = "biography";
+        object.format = "html";
+        object.file_data = Binary(fs.readFileSync(files.filetoupload.path));
+        await db.collection("misc").insert(object); // inserts binary data into the database
         let oldpath = files.filetoupload.path;
-        let newpath = __dirname + "/public/html/biography.html";
+        let newpath = __dirname + "/public/misc/biography.html";
         fs.renameSync(oldpath, newpath); // moves the file from a temporary folder to our content folder
         res.redirect("back");//reloads the page
     });
@@ -254,21 +262,33 @@ app.post("/contactupload", auth, function (req, res) { // upload a file from the
         if (files.filetoupload.size == 0) { fs.unlinkSync(files.filetoupload.path); response.err = "you need to include a file"; return res.json(response); }
         files.filetoupload.name = files.filetoupload.name.toLowerCase();
         if (!allowedFileFormats.includes(files.filetoupload.name.split(".").pop())) { fs.unlinkSync(files.filetoupload.path); response.err = "wrong file format"; return res.json(response); }
+        await db.collection("misc").deleteOne({ title: "contact" }); // there can be only one
+        let object = {};
+        object.title = "contact";
+        object.format = "html";
+        object.file_data = Binary(fs.readFileSync(files.filetoupload.path));
+        await db.collection("misc").insert(object); // inserts binary data into the database
         let oldpath = files.filetoupload.path;
-        let newpath = __dirname + "/public/html/contact.html";
+        let newpath = __dirname + "/public/misc/contact.html";
         fs.renameSync(oldpath, newpath); // moves the file from a temporary folder to our content folder
         res.redirect("back");//reloads the page
     });
 });
 app.post("/pictureupload", auth, function (req, res) { // upload a file from the form and then refresh the page
     let response = {};
-    let allowedFileFormats = ["jpg", "jpeg", "png", "gif", "bmp"];
+    let allowedFileFormats = ["jpg"];
     let form = new formidable.IncomingForm();
     form.parse(req, async function (err, fields, files) {
         if (files.filetoupload.size == 0) { fs.unlinkSync(files.filetoupload.path); response.err = "you need to include a file"; return res.json(response); }
         files.filetoupload.name = files.filetoupload.name.toLowerCase();
         if (!allowedFileFormats.includes(files.filetoupload.name.split(".").pop())) { fs.unlinkSync(files.filetoupload.path); response.err = "wrong file format"; return res.json(response); }
-        fs.renameSync(files.filetoupload.path, __dirname + "/public/pictures/biography.jpg"); // moves the file from a temporary folder to our content folder
+        await db.collection("misc").deleteOne({ title: "picture" }); // there can be only one
+        let object = {};
+        object.title = "picture";
+        object.format = "jpg";
+        object.file_data = Binary(fs.readFileSync(files.filetoupload.path));
+        await db.collection("misc").insert(object); // inserts binary data into the database
+        fs.renameSync(files.filetoupload.path, __dirname + "/public/misc/picture.jpg"); // moves the file from a temporary folder to our content folder
         res.redirect("back");//reloads the page
     });
 });
@@ -503,9 +523,7 @@ app.post("/get-html-content", async function (req, res) {
     let response = {};
     let poem = await db.collection("content").findOne({ "_id": new ObjectId(req.body.id) });
     if (!poem) { response.err = "poem not found"; return res.json(response); }
-    if (fs.existsSync(__dirname + "/public/content/" + poem._id + "." + poem.format, "utf8"))
-        response.html = fs.readFileSync(__dirname + "/public/content/" + poem._id + "." + poem.format, "utf8");
-    else { response.err = `file ${poem._id}.${poem.format} cannot be found`; return res.json(response); }
+    response.html = poem.htmlString;
     response.status = 200;
     res.json(response);
 });
@@ -519,7 +537,7 @@ app.post("/save-html-content", async function (req, res) {
         let myQuery = { _id: new ObjectId(req.body.id) };
         let newValue = {
             $set: {
-                "htmlString": req.body.htmlString
+                "htmlString": req.body.html
             }
         };
         db.collection("content").updateOne(myQuery, newValue, (err) => {
@@ -527,7 +545,6 @@ app.post("/save-html-content", async function (req, res) {
         });
         // poem.htmlString = req.body.htmlString;
     }
-    response.html = fs.writeFileSync(__dirname + "/public/content/" + poem._id + "." + poem.format, req.body.html, "utf8");
     response.htmlString = req.body.htmlString;
     response.status = 200;
     res.json(response);
@@ -625,10 +642,10 @@ app.get("/isLoggedIn", function (req, res) { // used for dynamically adding admi
     res.json(response);
 });
 
-app.get("/listOfSubscribers", auth, function(req, res){
+app.get("/listOfSubscribers", auth, function (req, res) {
     let response = {};
     db.collection("subscribers").find().toArray(function (err, foundSubscribers) {
-        if (err) { response.err = err; return res.json(response);}
+        if (err) { response.err = err; return res.json(response); }
         response.subscribers = foundSubscribers;
         response.status = 200;
         res.json(response);
@@ -724,7 +741,6 @@ const server = app.listen(process.env.PORT || 3009, function (err) { // start th
         console.log("Server couldn't start.");
         server.close(() => { process.exit() });
     }
-    //mongodb://heroku_3hkjj1jf:d75usaj6ce9nhmfaadlgjm84g2@ds151612.mlab.com:51612/heroku_3hkjj1jf
     mongo.connect("mongodb://heroku_3hkjj1jf:d75usaj6ce9nhmfaadlgjm84g2@ds151612.mlab.com:51612/heroku_3hkjj1jf", async function (err, database) {
         if (err) {
             console.log("There was an error running mongodb", err.message);
@@ -750,6 +766,19 @@ const server = app.listen(process.env.PORT || 3009, function (err) { // start th
                 console.log(err);
             });
         }
+        if (!fs.existsSync(__dirname + "/public/content")) fs.mkdirSync(__dirname + "/public/content");
+        if (!fs.existsSync(__dirname + "/public/subcontent")) fs.mkdirSync(__dirname + "/public/subcontent");
+        if (!fs.existsSync(__dirname + "/public/content")) fs.mkdirSync(__dirname + "/public/content");
+        if (!fs.existsSync(__dirname + "/public/misc")) fs.mkdirSync(__dirname + "/public/misc");
+        let contents = await db.collection("content").find().toArray();
+        let subcontents = await db.collection("subcontent").find().toArray();
+        let subsubcontents = await db.collection("subsubcontent").find().toArray();
+        let misc = await db.collection("misc").find().toArray();
+        contents.forEach((content) => { if (content.type !== "poem") fs.writeFileSync(__dirname + "/public/content/" + content._id + "." + content.format, content.file_data.buffer); });
+        subcontents.forEach((content) => { fs.writeFileSync(__dirname + "/public/subcontent/" + content._id + "." + content.format, content.file_data.buffer); });
+        subsubcontents.forEach((content) => { fs.writeFileSync(__dirname + "/public/subsubcontent/" + content._id + "." + content.format, content.file_data.buffer); });
+        misc.forEach((content) => { fs.writeFileSync(__dirname + "/public/misc/" + content.title + "." + content.format, content.file_data.buffer); });
+
         console.log("Server started on port", server.address().port);
     });
 });

@@ -1,13 +1,16 @@
-fileupload
-poem-upload
-subfileupload
-subsubfileupload
-biographyupload
-contactupload
-pictureupload
-delete-content
-delete-subcontent
-delete-subsubcontent
-get-html-content
-save-html-content
-broadcastForm
+fileupload			DONE
+poem-upload			DONE
+subfileupload			DONE
+subsubfileupload		DONE
+biographyupload			DONE
+contactupload			DONE
+pictureupload			DONE
+delete-content			ALREADY
+delete-subcontent		ALREADY
+delete-subsubcontent		ALREADY
+get-html-content		DONE
+save-html-content		DONE
+broadcastForm			ALREADY (the files are only accessed immediately after uploading them)
+
+
+server startup			DONE
