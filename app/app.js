@@ -190,7 +190,8 @@ app.post("/subfileupload", auth, function (req, res) { // upload a subfile from 
         let oldpath = files.filetoupload.path;
         let newpath = __dirname + "/public/subcontent/" + object._id + "." + object.format;
         if (!fs.existsSync(__dirname + "/public/subcontent")) fs.mkdirSync(__dirname + "/public/subcontent");
-        fs.renameSync(oldpath, newpath); // moves the file from a temporary folder to our subcontent folder
+        fs.writeFileSync(newpath, fs.readFileSync(oldpath));
+        fs.unlinkSync(oldpath);
         res.json(response);
     });
 
@@ -217,7 +218,8 @@ app.post("/subsubfileupload", auth, function (req, res) { // upload a subsubfile
         let oldpath = files.filetoupload.path;
         let newpath = __dirname + "/public/subsubcontent/" + object._id + "." + object.format;
         if (!fs.existsSync(__dirname + "/public/subsubcontent")) fs.mkdirSync(__dirname + "/public/subsubcontent");
-        fs.renameSync(oldpath, newpath); // moves the file from a temporary folder to our subcontent folder
+        fs.writeFileSync(newpath, fs.readFileSync(oldpath));
+        fs.unlinkSync(oldpath);
         res.json(response);
     });
 });
@@ -251,7 +253,8 @@ app.post("/biographyupload", auth, function (req, res) { // upload a file from t
         await db.collection("misc").insert(object); // inserts binary data into the database
         let oldpath = files.filetoupload.path;
         let newpath = __dirname + "/public/misc/biography.html";
-        fs.renameSync(oldpath, newpath); // moves the file from a temporary folder to our content folder
+        fs.writeFileSync(newpath, fs.readFileSync(oldpath));
+        fs.unlinkSync(oldpath);
         res.redirect("back");//reloads the page
     });
 });
@@ -271,7 +274,8 @@ app.post("/contactupload", auth, function (req, res) { // upload a file from the
         await db.collection("misc").insert(object); // inserts binary data into the database
         let oldpath = files.filetoupload.path;
         let newpath = __dirname + "/public/misc/contact.html";
-        fs.renameSync(oldpath, newpath); // moves the file from a temporary folder to our content folder
+        fs.writeFileSync(newpath, fs.readFileSync(oldpath));
+        fs.unlinkSync(oldpath);
         res.redirect("back");//reloads the page
     });
 });
@@ -289,7 +293,10 @@ app.post("/pictureupload", auth, function (req, res) { // upload a file from the
         object.format = "jpg";
         object.file_data = Binary(fs.readFileSync(files.filetoupload.path));
         await db.collection("misc").insert(object); // inserts binary data into the database
-        fs.renameSync(files.filetoupload.path, __dirname + "/public/misc/picture.jpg"); // moves the file from a temporary folder to our content folder
+        let oldpath = files.filetoupload.path;
+        let newpath = __dirname + "/public/misc/picture.jpg";
+         fs.writeFileSync(newpath, fs.readFileSync(oldpath));
+        fs.unlinkSync(oldpath);
         res.redirect("back");//reloads the page
     });
 });
