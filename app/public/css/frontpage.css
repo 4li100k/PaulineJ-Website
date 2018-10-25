@@ -912,7 +912,7 @@ input[type=button] {
 }
 
 .sidemenu p::before {
-    content: '';
+    /* content: '';
     width: 10px;
     height: 10px;
     position: absolute;
@@ -923,7 +923,7 @@ input[type=button] {
     background-color: darkcyan;
     transform: translateY(-50%) rotate(45deg);
     -webkit-transition: all 1s;
-    transition: all 1s;
+    transition: all 1s; */
 }
 
 .sidemenu p:hover::before {

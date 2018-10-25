@@ -142,7 +142,8 @@ app.post("/fileupload", auth, function (req, res) { // upload a file from the fo
             let oldpath = files.filetoupload.path;
             let newpath = __dirname + "/public/content/" + object._id + "." + object.format;
             if (!fs.existsSync(__dirname + "/public/content")) fs.mkdirSync(__dirname + "/public/content");
-            fs.renameSync(oldpath, newpath); // moves the file from a temporary folder to our content folder
+            fs.writeFileSync(newpath, fs.readFileSync(oldpath));
+            fs.unlinkSync(oldpath);
         }
         res.json(response);
     });
@@ -768,7 +769,7 @@ const server = app.listen(process.env.PORT || 3009, function (err) { // start th
         }
         if (!fs.existsSync(__dirname + "/public/content")) fs.mkdirSync(__dirname + "/public/content");
         if (!fs.existsSync(__dirname + "/public/subcontent")) fs.mkdirSync(__dirname + "/public/subcontent");
-        if (!fs.existsSync(__dirname + "/public/content")) fs.mkdirSync(__dirname + "/public/content");
+        if (!fs.existsSync(__dirname + "/public/content")) fs.mkdirSync(__dirname + "/public/subsubcontent");
         if (!fs.existsSync(__dirname + "/public/misc")) fs.mkdirSync(__dirname + "/public/misc");
         let contents = await db.collection("content").find().toArray();
         let subcontents = await db.collection("subcontent").find().toArray();
