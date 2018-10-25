@@ -160,6 +160,7 @@ app.post("/poem-upload", auth, async function (req, res) { // upload a file from
     object.isVisible = true;
     object.format = "html"; // saves the file extension
     object.htmlString = "";
+    object.htmlContent = "";
     await db.collection("content").insert(object);
     response.object = object;// must be here because .insert() gives it the _id attribute
     response.status = 200;
@@ -531,7 +532,8 @@ app.post("/get-html-content", async function (req, res) {
     let response = {};
     let poem = await db.collection("content").findOne({ "_id": new ObjectId(req.body.id) });
     if (!poem) { response.err = "poem not found"; return res.json(response); }
-    response.html = poem.htmlString;
+    response.html = poem.htmlContent;
+    response.htmlString = poem.htmlString;
     response.status = 200;
     res.json(response);
 });
@@ -545,7 +547,8 @@ app.post("/save-html-content", async function (req, res) {
         let myQuery = { _id: new ObjectId(req.body.id) };
         let newValue = {
             $set: {
-                "htmlString": req.body.html
+                "htmlString": req.body.htmlString,
+                "htmlContent": req.body.html
             }
         };
         db.collection("content").updateOne(myQuery, newValue, (err) => {

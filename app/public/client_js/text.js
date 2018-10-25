@@ -48,7 +48,7 @@ $(document).ready(async function () {
                 $("#text_side_navi").append(`<div id="${object._id}" class="text_title"><a>${object.title}</a></div>`);
                 $(".small-media-text").append(`<button class="accordion">${object.title}</button>
                 <div class="panel"><pre>${object.htmlString}</pre></div>`);
-                console.log("panel text: " + object.htmlString);
+                // console.log("panel text: " + object.htmlString);
                 load_text_content("#" + object._id, "/content/" + object._id + "." + object.format);
             });
         } else {
